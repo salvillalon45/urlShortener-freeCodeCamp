@@ -8,7 +8,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-const urls = [];
+const urls: URL[] = [];
 
 app.post('/api/shorturl', function (req, res, next) {
 	console.log(req.body);
@@ -16,19 +16,27 @@ app.post('/api/shorturl', function (req, res, next) {
 	let response = {};
 
 	if (isUrlValid(urlReqBody)) {
-		let original_short_url = new URL(urlReqBody);
-		console.log({ original_short_url });
+		const original_url = new URL(urlReqBody);
+		console.log({ original_url });
+
+		if (!urls.includes(original_url)) {
+			urls.push(original_url);
+		}
 
 		response = {
-			original_short_url: 'orginial',
-			short_url: 'short'
+			original_url: original_url,
+			short_url: urls.indexOf(original_url) + 1
 		};
 	} else {
 		response = { error: 'invalid url' };
 	}
 
+	console.log({ urls });
+
 	res.send(response);
 });
+
+app.get('/api/shorturl/:id', function (req, res, next) {});
 
 app.listen(PORT, function () {
 	console.log(`Server is running on port ${PORT}`);

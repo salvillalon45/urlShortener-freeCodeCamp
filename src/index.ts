@@ -17,7 +17,6 @@ app.post('/api/shorturl', function (req, res, next) {
 
 	if (isUrlValid(urlReqBody)) {
 		const original_url = new URL(urlReqBody);
-		console.log({ original_url });
 
 		if (!urls.includes(original_url)) {
 			urls.push(original_url);
@@ -36,7 +35,15 @@ app.post('/api/shorturl', function (req, res, next) {
 	res.send(response);
 });
 
-app.get('/api/shorturl/:id', function (req, res, next) {});
+app.get('/api/shorturl/:id', function (req, res, next) {
+	console.log('req.params.id:: ', req.params.id);
+	console.log('parseInt(req.params.id) - 1:: ', parseInt(req.params.id) - 1);
+
+	const externalUrl = urls[parseInt(req.params.id) - 1].toString();
+	console.log({ externalUrl });
+
+	res.redirect(externalUrl);
+});
 
 app.listen(PORT, function () {
 	console.log(`Server is running on port ${PORT}`);

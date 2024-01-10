@@ -38,11 +38,14 @@ app.post('/api/shorturl', function (req, res, next) {
 app.get('/api/shorturl/:id', function (req, res, next) {
 	console.log('req.params.id:: ', req.params.id);
 	console.log('parseInt(req.params.id) - 1:: ', parseInt(req.params.id) - 1);
-
-	const externalUrl = urls[parseInt(req.params.id) - 1].toString();
-	console.log({ externalUrl });
-
-	res.redirect(externalUrl);
+	const id = parseInt(req.params.id);
+	if (id) {
+		const externalUrl = urls[id - 1].toString();
+		console.log({ externalUrl });
+		res.redirect(externalUrl);
+	} else {
+		res.send({ error: 'Wrong format' });
+	}
 });
 
 app.listen(PORT, function () {

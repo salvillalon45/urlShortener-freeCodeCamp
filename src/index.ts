@@ -18,13 +18,13 @@ app.post('/api/shorturl', function (req, res, next) {
 	if (isUrlValid(urlReqBody)) {
 		const original_url = new URL(urlReqBody);
 
-		if (!urls.includes(original_url)) {
-			urls.push(original_url);
+		if (!urls.includes(urlReqBody)) {
+			urls.push(urlReqBody);
 		}
 
 		response = {
-			original_url: original_url,
-			short_url: urls.indexOf(original_url) + 1
+			original_url: urlReqBody,
+			short_url: urls.indexOf(urlReqBody) + 1
 		};
 	} else {
 		response = { error: 'invalid url' };

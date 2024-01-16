@@ -57,7 +57,7 @@ If you pass an invalid short url to `/api/shorturl/<short_url>`, then it will re
 -   **Notes on body-parser:**
     -   Before parsing, the incoming data will be a regular string that could not access the data encoded inside, but after parsing, it becomes a JavaScript object where it can access the various data within.
     -   **body-parser** is an NPM package that parses incoming request bodies in a middleware before your handlers, available under the req.body property.
-    -   `bodyParser.json()` looks at requests where the Content-Type: application/json header is present and transforms the text-based JSON input into JS-accessible variables under req.body. \
+    -   `bodyParser.json()` looks at requests where the Content-Type: application/json header is present and transforms the text-based JSON input into JS-accessible variables under req.body.
     -   `bodyParser.urlencoded({extended: true})` does the same for URL-encoded requests. The extended: true precises that the req.body object will contain values of any type instead of just strings.
 -   `application/x-www-form-urlencoded` - is a MIME type used for encoding form data when it is submitted in HTML forms.
 -  For example
@@ -77,6 +77,15 @@ If you pass an invalid short url to `/api/shorturl/<short_url>`, then it will re
     Content-Type: application/x-www-form-urlencoded
     username=john_doe&password=secret123
     ```
+
+### Links
+- [How to Validate URLs in JavaScript
+](https://www.freecodecamp.org/news/how-to-validate-urls-in-javascript/#how-to-use-the-url-constructor-to-validate-urls)
+- [ExpressJS - Form data
+](https://www.tutorialspoint.com/expressjs/expressjs_form_data.htm)
+- [A Complete And Comprehensive Guide To Understand Body Parser In Express JS
+](https://www.simplilearn.com/tutorials/nodejs-tutorial/body-parser-in-express-js)
+- [What is the meaning of "bodyParser.urlencoded({ extended: true }))" and "bodyParser.json()" in Express.js?](https://stackoverflow.com/questions/55558402/what-is-the-meaning-of-bodyparser-urlencoded-extended-true-and-bodypar)
 
 ### Demo
 

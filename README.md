@@ -54,12 +54,13 @@ If you pass an invalid short url to `/api/shorturl/<short_url>`, then it will re
 
 -   [Accept](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept): The Accept request HTTP header indicates which content types, expressed as MIME types, the client is able to understand.
 -   [Request header](https://developer.mozilla.org/en-US/docs/Glossary/Request_header): A request header is an HTTP header that can be used in an HTTP request to provide information about the request context, so that the server can tailor the response
--   Notes on body-parser:
+-   **Notes on body-parser:**
     -   Before parsing, the incoming data will be a regular string that could not access the data encoded inside, but after parsing, it becomes a JavaScript object where it can access the various data within.
-    -   body-parser is an NPM package that parses incoming request bodies in a middleware before your handlers, available under the req.body property.
+    -   **body-parser** is an NPM package that parses incoming request bodies in a middleware before your handlers, available under the req.body property.
     -   `bodyParser.json()` looks at requests where the Content-Type: application/json header is present and transforms the text-based JSON input into JS-accessible variables under req.body. \
     -   `bodyParser.urlencoded({extended: true})` does the same for URL-encoded requests. The extended: true precises that the req.body object will contain values of any type instead of just strings.
--   `application/x-www-form-urlencoded` - is a MIME type used for encoding form data when it is submitted in HTML forms. It is the default encoding type for HTML forms and is widely used in web applications for sending data from the client (browser) to the server. - When a form is submitted with the application/x-www-form-urlencoded encoding type, the form data is encoded in key-value pairs, separated by "&" characters. Each key-value pair is URL-encoded, meaning that special characters are replaced with their corresponding percent-encoded values. The key and value are separated by the "=" character. - For example
+-   `application/x-www-form-urlencoded` - is a MIME type used for encoding form data when it is submitted in HTML forms.
+-  For example
     ```
     <form method="post" action="/login" enctype="application/x-www-form-urlencoded">
         <label for="username">Username:</label>
@@ -79,7 +80,8 @@ If you pass an invalid short url to `/api/shorturl/<short_url>`, then it will re
 
 ### Demo
 
-<img alt="Url Shortener Demo" src="./url_shortener_demo.mp4" width="600" />
+
+https://github.com/salvillalon45/urlShortener-freeCodeCamp/assets/18276475/d5be805f-2676-4436-bee4-62bc37ab226d
 
 # Technologies:
 

@@ -3,13 +3,11 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import { PORT, isValidHttpUrl } from './utils';
 
-var multer = require('multer');
-var upload = multer();
 const app = express();
 
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 // for parsing multipart/form-data
-app.use(upload.array());
+// app.use(upload.array());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());

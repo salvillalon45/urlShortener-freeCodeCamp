@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { PORT, isUrlValid } from './utils';
+import { PORT, isValidHttpUrl } from './utils';
 
 const app = express();
 
@@ -15,8 +15,11 @@ app.post('/api/shorturl', function (req, res, next) {
 	const { url: urlReqBody } = req.body;
 	let response = {};
 
-	if (isUrlValid(urlReqBody)) {
+	if (isValidHttpUrl(urlReqBody)) {
+		console.log('Valid URL');
 		const original_url = new URL(urlReqBody);
+		console.log({ urlReqBody });
+		console.log({ original_url });
 
 		if (!urls.includes(urlReqBody)) {
 			urls.push(urlReqBody);
@@ -27,6 +30,7 @@ app.post('/api/shorturl', function (req, res, next) {
 			short_url: urls.indexOf(urlReqBody) + 1
 		};
 	} else {
+		console.log('Not Valid URL');
 		response = { error: 'invalid url' };
 	}
 

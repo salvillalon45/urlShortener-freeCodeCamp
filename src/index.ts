@@ -10,6 +10,8 @@ const app = express();
 app.use(bodyParser.json());
 // for parsing multipart/form-data
 app.use(upload.array());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(cors());
 
 const urls: URL[] = [];

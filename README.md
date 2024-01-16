@@ -37,24 +37,49 @@ If you pass an invalid short url to `/api/shorturl/<short_url>`, then it will re
 
 ### Lessons Learned
 
-#### Code implementation
+-   I was not passing two tests which were the main functionality of the api:
+    -   You can POST a URL to /api/shorturl and get a JSON response with original_url and short_url properties. Here's an example: { original_url : 'https://freeCodeCamp.org', short_url : 1}
+    -   When you visit /api/shorturl/<short_url>, you will be redirected to the original URL.
+-   I investigated and found the following:
+    -   I assumed that the data send in the **POST** was **JSON**
+    -   After looking at the **Network Tab**, I saw two clues:
+        -   The `request headers accept key` accepted the following `text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7`, but not **JSON**!
+        -   In the Payload tab, it said `Form Data` along with view in `URL-Encoded`
+        -   ![Network Tab Clue](./docs/clue.png)
+        -   This told me that the data being send was not in JSON!
+-   I found the `urlencoded` option from `bodyParser` and that helped me pass the tests
+-   I learned to always check what data the client accepts! It is not alway JSON!
 
-```
-  const { ip, headers } = req;
+### Resources
 
-	const ipaddress = ip;
-	const language = headers['accept-language'];
-	const software = headers['user-agent'];
-	const responseObject = {
-		ipaddress,
-		language,
-		software
-	};
-```
+-   [Accept](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept): The Accept request HTTP header indicates which content types, expressed as MIME types, the client is able to understand.
+-   [Request header](https://developer.mozilla.org/en-US/docs/Glossary/Request_header): A request header is an HTTP header that can be used in an HTTP request to provide information about the request context, so that the server can tailor the response
+-   Notes on body-parser:
+    -   Before parsing, the incoming data will be a regular string that could not access the data encoded inside, but after parsing, it becomes a JavaScript object where it can access the various data within.
+    -   body-parser is an NPM package that parses incoming request bodies in a middleware before your handlers, available under the req.body property.
+    -   `bodyParser.json()` looks at requests where the Content-Type: application/json header is present and transforms the text-based JSON input into JS-accessible variables under req.body. \
+    -   `bodyParser.urlencoded({extended: true})` does the same for URL-encoded requests. The extended: true precises that the req.body object will contain values of any type instead of just strings.
+-   `application/x-www-form-urlencoded` - is a MIME type used for encoding form data when it is submitted in HTML forms. It is the default encoding type for HTML forms and is widely used in web applications for sending data from the client (browser) to the server. - When a form is submitted with the application/x-www-form-urlencoded encoding type, the form data is encoded in key-value pairs, separated by "&" characters. Each key-value pair is URL-encoded, meaning that special characters are replaced with their corresponding percent-encoded values. The key and value are separated by the "=" character. - For example
+    ```
+    <form method="post" action="/login" enctype="application/x-www-form-urlencoded">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+        <input type="submit" value="Submit">
+     </form>
+    ```
+-   If the user enters "john_doe" for the username and "secret123" for the password, the data sent in the HTTP request would look like this:
+    ```
+    POST /login HTTP/1.1
+    Host: example.com
+    Content-Type: application/x-www-form-urlencoded
+    username=john_doe&password=secret123
+    ```
 
 ### Demo
 
-<img alt="Request Header Parser Demo" src="./request_header_parser_demo.gif" width="600" />
+<img alt="Url Shortener Demo" src="./url_shortener_demo.mp4" width="600" />
 
 # Technologies:
 

@@ -97,3 +97,5 @@ https://github.com/salvillalon45/urlShortener-freeCodeCamp/assets/18276475/d5be8
 -   JavaScript
 -   TypeScript
 -   Render
+-   NodeJS
+-   ExpressJS
